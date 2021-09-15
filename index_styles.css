@@ -1,0 +1,171 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+
+.item-cards-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.item-card-base{
+    width: 260px;
+    height: 440px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #EFEFEF;
+    position: relative;
+}
+
+.item-card{
+    width: 260px;
+    height: 410px;
+    padding: 15px 0px 0px;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.item-card-info-wrapper{
+    margin: auto 0px 15px 0px;
+}
+
+.item-image-figure-wrapper{
+    margin: 20px 0px 0px;
+    padding: 0px;
+    justify-content: center;
+}
+
+
+
+.item-image{
+    max-height: 250px;
+    max-width: 200px;
+}
+.item-category-name, .item-name, .item-rating-stars, .new-announce{
+    font-family: 'Raleway', sans-serif;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 3px 0px;
+}
+.item-category-name{
+    font-weight: 200;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #999;
+}
+.item-name{
+    font-weight: 500;
+}
+
+
+
+.add-to-cart-button{
+    width: 150px;
+    height: 35px;
+    background-color: #62A2D2;
+    border:none;
+    padding-top: 0px;
+
+    position: absolute;
+    left: 75px;
+    bottom: 30px;
+}
+.add-to-cart-button > a{
+    color: #FFF;
+    text-decoration: none;
+}
+.round-action-buttons-wrapper{
+    position: absolute;
+    top:30px;
+    right: 30px;
+}
+.round-action-button{
+    display: block;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-bottom: 3px;
+    border:none;
+    padding-top: 0px;
+    background-color: #EEE;
+}
+.announce-block{
+    position: absolute;
+    top:30px;
+    left: 35px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    padding: 2px;
+}
+.new-announce {
+    background-color: #62A2D2;
+    color: #FFF;
+}
+.new-announce:after{
+    content: "New";
+}
+
+
+
+.item-card, .item-image, .round-action-button{
+    transition: 1s ease;
+}
+.bounce-animation{
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.6s;
+    animation-delay: 0.3s;
+}
+/*
+*   after hovering
+*/
+.item-card-base:hover>.item-card{
+    height: 350px;
+}
+.item-card-base:hover .item-image{
+    max-height: 220px;
+}
+.item-card-base:hover>.bounce-animation{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-5px);
+}
+.add-to-cart-button:hover{
+    background-color: #4f83ab;
+}
+.round-action-button:hover{
+    background-color: #B8B8B8;
+}
+/*
+* button active
+ */
+.add-to-cart-button:active, .round-action-button:active{
+    padding-top: 3px;
+    transition: 0s;
+}
+
+/*
+*font icons
+*/
+.fa-shopping-basket{
+    margin: 0px 5px;
+    color: #FFF;
+}
+/*
+*  stars
+ */
+.star-out{
+    position: relative;
+    z-index: 1;
+    color: #191919;
+}
+.star-in{
+    position: absolute;
+    z-index: 2;
+    top:0;
+    left:0;
+    color: #191919;
+    overflow: hidden;
+}
