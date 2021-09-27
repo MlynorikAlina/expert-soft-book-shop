@@ -3,19 +3,58 @@
 <head>
 	<meta charset="UTF-8">
 	<title>@_Site_Name</title>
-	<link type="text/css" rel="stylesheet" href="index_styles.css">
-	<link href="sources/fontawesome/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
+	<link href="assets/fontawesome/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/filter_styles.css">
+	<link type="text/css" rel="stylesheet" href="css/header_styles.css">
+	<link type="text/css" rel="stylesheet" href="css/index_styles.css">
 </head>
 <body>
+<header>
+	<div class="header-bar">
+		<div class="site-logo"></div>
+		<h1 class="site-name">Books</h1>
+	</div>
+</header>
 <main>
+	<section class="filter">
+		<fieldset class="filter-buttons-wrapper">
+			<div class="filter-all filter-button filter-button-active">All</div>
+			<div class="filter-favourites filter-button">Favourites</div>
+			<div class="filter-comparison filter-button">Comparison</div>
+			<div id="filter-settings-button">
+				<i class="fas fa-ellipsis-h"></i>
+				<div id="filter-options-checkboxes" class="hide">
+					<legend for="filter-options-checkboxes">Options</legend>
+					<label class="filter-checkbox-label show-hidden-label"><input id="show-hide-checkbox" checked type="checkbox">Show hidden</label>
+				</div>
+			</div>
+		</fieldset>
+		<label class="filter-more-checkbox-wrapper-label thin-gray-font" for="filter-more-checkbox-wrapper"></label>
+		<hr>
+		<div id="filter-more-checkbox-wrapper" class="hide-genre-checkboxes checkbox-wrapper">
+			<legend for="filter-genre-checkboxes">Filter by genre</legend>
+			<fieldset id="filter-genre-checkboxes">
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+				<label class="filter-checkbox-label"><input type="checkbox"> Mark me</label>
+			</fieldset>
+		</div>
+	</section>
 	<div class="item-cards-container">
-		<div class="item-card-base">
+		<div id="1" class="item-card-base">
 			<div class="item-card">
 				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/sherlock-holmes.jpg">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
 				</figure>
 				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
+					<strong class="item-category-name thin-gray-font">Books</strong>
 					<p class="item-rating-stars">
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
@@ -32,48 +71,19 @@
 				<a href="#">ADD TO CART</a>
 			</button>
 			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
 			</div>
 			<div class="announce-block new-announce"></div>
 		</div>
-		<div class="item-card-base">
+		<div id="2" class="item-card-base">
 			<div class="item-card">
 				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/witcher.jpg">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
 				</figure>
 				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
-					<p class="item-rating-stars">
-						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
-						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
-						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
-						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 30%"></i></i>
-						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
-					</p>
-					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
-					<b class="item-price">$24</b>
-				</div>
-			</div>
-			<button class="add-to-cart-button bounce-animation">
-				<i class="fas fa-shopping-basket"></i>
-				<a href="#">ADD TO CART</a>
-			</button>
-			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
-			</div>
-			<div class="announce-block new-announce"></div>
-		</div>
-		<div class="item-card-base">
-			<div class="item-card">
-				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/lord-of-rings.jpg">
-				</figure>
-				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
+					<strong class="item-category-name thin-gray-font">Books</strong>
 					<p class="item-rating-stars">
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
@@ -90,19 +100,19 @@
 				<a href="#">ADD TO CART</a>
 			</button>
 			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
 			</div>
 			<div class="announce-block new-announce"></div>
 		</div>
-		<div class="item-card-base">
+		<div id="3" class="item-card-base">
 			<div class="item-card">
 				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/sherlock-holmes.jpg">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
 				</figure>
 				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
+					<strong class="item-category-name thin-gray-font">Books</strong>
 					<p class="item-rating-stars">
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
@@ -119,19 +129,19 @@
 				<a href="#">ADD TO CART</a>
 			</button>
 			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
 			</div>
 			<div class="announce-block new-announce"></div>
 		</div>
-		<div class="item-card-base">
+		<div id="4" class="item-card-base">
 			<div class="item-card">
 				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/sherlock-holmes.jpg">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
 				</figure>
 				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
+					<strong class="item-category-name thin-gray-font">Books</strong>
 					<p class="item-rating-stars">
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
@@ -148,19 +158,19 @@
 				<a href="#">ADD TO CART</a>
 			</button>
 			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
 			</div>
 			<div class="announce-block new-announce"></div>
 		</div>
-		<div class="item-card-base">
+		<div id="5" class="item-card-base">
 			<div class="item-card">
 				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/sherlock-holmes.jpg">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
 				</figure>
 				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
+					<strong class="item-category-name thin-gray-font">Books</strong>
 					<p class="item-rating-stars">
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
@@ -177,19 +187,19 @@
 				<a href="#">ADD TO CART</a>
 			</button>
 			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
 			</div>
 			<div class="announce-block new-announce"></div>
 		</div>
-		<div class="item-card-base">
+		<div id="6" class="item-card-base">
 			<div class="item-card">
 				<figure class="item-image-figure-wrapper">
-					<img class="item-image" src="sources/item-img/sherlock-holmes.jpg">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
 				</figure>
 				<div class="item-card-info-wrapper">
-					<strong class="item-category-name">Books</strong>
+					<strong class="item-category-name thin-gray-font">Books</strong>
 					<p class="item-rating-stars">
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
 						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
@@ -206,13 +216,246 @@
 				<a href="#">ADD TO CART</a>
 			</button>
 			<div class="round-action-buttons-wrapper bounce-animation">
-				<button class="view-button round-action-button"><i class="far fa-eye"></i></button>
-				<button class="like-button round-action-button"><i class="far fa-heart"></i></button>
-				<button class="scale-button round-action-button"><i class="fas fa-balance-scale"></i></button>
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="7" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="8" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="9" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="10" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="11" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="12" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="13" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
+			</div>
+			<div class="announce-block new-announce"></div>
+		</div>
+		<div id="14" class="item-card-base">
+			<div class="item-card">
+				<figure class="item-image-figure-wrapper">
+					<img class="item-image" src="images/item-img/sherlock-holmes.jpg">
+				</figure>
+				<div class="item-card-info-wrapper">
+					<strong class="item-category-name thin-gray-font">Books</strong>
+					<p class="item-rating-stars">
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 100%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 70%"></i></i>
+						<i class="far fa-star star-out"><i class="fas fa-star star-in" style="width: 0%"></i></i>
+					</p>
+					<p class="item-name">Sherlock Holmes--------------------------ksjdh</p>
+					<b class="item-price">$24</b>
+				</div>
+			</div>
+			<button class="add-to-cart-button bounce-animation">
+				<i class="fas fa-shopping-basket"></i>
+				<a href="#">ADD TO CART</a>
+			</button>
+			<div class="round-action-buttons-wrapper bounce-animation">
+				<button class="show-hide-button round-action-button far fa-eye"></button>
+				<button class="add-remove-favourites-button round-action-button far fa-heart"></button>
+				<button class="add-remove-comparison-button round-action-button fas fa-balance-scale"></button>
 			</div>
 			<div class="announce-block new-announce"></div>
 		</div>
 	</div>
 </main>
+<script src="js/index.js"></script>
 </body>
 </html>

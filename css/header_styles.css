@@ -1,0 +1,13 @@
+.header-bar{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding-left: 10px;
+}
+.site-logo{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #EFEFEF;
+    margin: 5px;
+}
