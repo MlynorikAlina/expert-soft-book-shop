@@ -1,20 +1,92 @@
-var hiddenItemCardsIdsSet = new Set();
-var favouritesIdsSet = new Set();
-var comparisonIdsSet = new Set();
-var filterButtonStateMarker = 'all';
+var filterButtonStateMarker;
+
+var filter;
+var checkboxWrapperLabel;
+var checkboxWrapper;
+
+var buttonsWrapper;
+var settingsButton;
+var hideShowCheckbox;
+
+var itemCardsContainer;
+
+var addRemoveFromGroup;
+
+var initializeVariables = function () {
+    filterButtonStateMarker = 'all';
+
+    filter = document.querySelector('.filter');
+    checkboxWrapperLabel = filter.querySelector('.filter-more-checkbox-wrapper-label');
+    checkboxWrapper = filter.querySelector('#filter-more-checkbox-wrapper');
+
+    buttonsWrapper = filter.querySelector('.filter-buttons-wrapper');
+    settingsButton = buttonsWrapper.querySelector('#filter-settings-button');
+    hideShowCheckbox = buttonsWrapper.querySelector('#show-hide-checkbox');
+
+    itemCardsContainer = document.querySelector('.item-cards-container');
+
+    var hiddenItemCardsIdsSet = loadSetFromLocalStorageByKey('hiddenItemCardsIds');
+    var favouritesIdsSet = loadSetFromLocalStorageByKey('favouritesIds');
+    var comparisonIdsSet = loadSetFromLocalStorageByKey('comparisonIds');
+
+    updateCardsDOM(hiddenItemCardsIdsSet, favouritesIdsSet, comparisonIdsSet);
+
+    addRemoveFromGroup = creatingCardGroups(hiddenItemCardsIdsSet, favouritesIdsSet, comparisonIdsSet);
+}
 
 
-var filter = document.querySelector('.filter');
-var checkboxWrapperLabel = filter.querySelector('.filter-more-checkbox-wrapper-label');
-var checkboxWrapper = filter.querySelector('#filter-more-checkbox-wrapper');
+var loadSetFromLocalStorageByKey = function (key) {
+    if (localStorage.hasOwnProperty(key)) {
+        return new Set(JSON.parse(localStorage.getItem(key)));
+    }
+    return new Set();
+}
 
-var buttonsWrapper = filter.querySelector('.filter-buttons-wrapper');
-var settingsButton = buttonsWrapper.querySelector('#filter-settings-button');
-var hideShowCheckbox = buttonsWrapper.querySelector('#show-hide-checkbox');
+var switchCardState = function () {
+    var cardState = {
+        hidden: {
+            buttonClass: '.show-hide-button',
+            cardStyleClass: 'hide-card',
+            buttonClassActive: 'fa-eye-slash',
+            buttonClassInactive: 'fa-eye'
+        },
+        inFavourites: {
+            buttonClass: '.add-remove-favourites-button',
+            cardStyleClass: 'in-favourites',
+            buttonClassActive: 'fas',
+            buttonClassInactive: 'far'
+        },
+        inComparison: {
+            buttonClass: '.add-remove-comparison-button',
+            cardStyleClass: 'in-comparison',
+            buttonClassActive: 'fa-balance-scale-left',
+            buttonClassInactive: 'fa-balance-scale'
+        }
+    }
+    return function (card, stateType) {
+        var state = cardState[stateType];
+        var button = card.querySelector(state.buttonClass);
+        card.classList.add(state.cardStyleClass);
+        button.classList.toggle(state.buttonClassActive);
+        button.classList.toggle(state.buttonClassInactive);
+    }
+}();
 
+var updateCardsDOM = function (hiddenItemCardsIdsSet, favouritesIdsSet, comparisonIdsSet) {
+    for (var i = 0; i < itemCardsContainer.children.length; i++) {
+        var card = itemCardsContainer.children[i];
 
-var itemCardsContainer = document.querySelector('.item-cards-container');
-
+        if (hiddenItemCardsIdsSet.has(card.id)) {
+            switchCardState(card, 'hidden');
+        }
+        if (favouritesIdsSet.has(card.id)) {
+            switchCardState(card, 'inFavourites');
+        }
+        if (comparisonIdsSet.has(card.id)) {
+            switchCardState(card, 'inComparison');
+        }
+    }
+}
 
 var showHideOptionalCheckboxes = function () {
     var ellipsis = settingsButton.querySelector('.fa-ellipsis-h');
@@ -26,156 +98,100 @@ var showHideOptionalCheckboxes = function () {
     optionalCheckboxes.classList.toggle('show-vertical-flex');
 }
 
-
-var showHideCard = function (target) {
-    var itemCardBase = target.parentElement.parentElement;
-    itemCardBase.classList.toggle('hide-card');
-    target.classList.toggle('fa-eye-slash');
-    target.classList.toggle('fa-eye');
-
-    if (itemCardBase.classList.contains('hide-card')) {
-        hiddenItemCardsIdsSet.add(itemCardBase.id);
-        if (!hideShowCheckbox.checked)
-            itemCardBase.classList.add('display-none');
-    } else {
-        hiddenItemCardsIdsSet.delete(itemCardBase.id);
+var creatingCardGroups = function (hiddenItemCardsIdsSet, favouritesIdsSet, comparisonIdsSet) {
+    var cardCroup = {
+        hidden: {
+            groupSet: hiddenItemCardsIdsSet,
+            groupName: 'hiddenItemCardsIds',
+            optionalActions: function (card) {
+                if (!hideShowCheckbox.checked)
+                    card.classList.add('display-none');
+            }
+        },
+        inFavourites: {
+            groupSet: favouritesIdsSet,
+            groupName: 'favouritesIds'
+        },
+        inComparison: {
+            groupSet: comparisonIdsSet,
+            groupName: 'comparisonIds'
+        }
     }
-    localStorage.setItem('hiddenItemCardsIds', JSON.stringify(Array.from(hiddenItemCardsIdsSet)))
+    return function (card, stateType) {
+        switchCardState(card, stateType);
+        var group = cardCroup[stateType];
+        if (group.groupSet.has(card.id)) {
+            group.groupSet.delete(card.id);
+        } else {
+            group.groupSet.add(card.id);
+            if (group.hasOwnProperty('optionalActions')) group.optionalActions(card);
+        }
+        localStorage.setItem(group.groupName, JSON.stringify(Array.from(group.groupSet)));
+    }
 }
-
-var addRemoveFavourites = function (target) {
-    var itemCardBase = target.parentElement.parentElement;
-    target.classList.toggle('far');
-    target.classList.toggle('fas');
-    itemCardBase.classList.toggle('in-favourites');
-
-    if (target.classList.contains('fas')) {
-        favouritesIdsSet.add(itemCardBase.id);
-    } else {
-        favouritesIdsSet.delete(itemCardBase.id);
-    }
-    localStorage.setItem('favouritesIds', JSON.stringify(Array.from(favouritesIdsSet)))
+var changeDisplayOfHiddenCards = function () {
+    itemCardsContainer.querySelectorAll('.hide-card').forEach(function (el) {
+        if (filterButtonStateMarker === 'all' || el.classList.contains(filterButtonStateMarker)) {
+            el.classList.toggle('display-none');
+        }
+    });
 }
-
-var addRemoveComparison = function (target) {
-    var itemCardBase = target.parentElement.parentElement;
-    target.classList.toggle('fa-balance-scale-left');
-    target.classList.toggle('fa-balance-scale');
-    itemCardBase.classList.toggle('in-comparison');
-
-    if (target.classList.contains('fa-balance-scale-left')) {
-        comparisonIdsSet.add(itemCardBase.id);
-    } else {
-        comparisonIdsSet.delete(itemCardBase.id);
+var displayCards = function () {
+    for (var i = 0; i < itemCardsContainer.children.length; i++) {
+        if ((filterButtonStateMarker === 'all' || itemCardsContainer.children[i].classList.contains(filterButtonStateMarker))
+            && (hideShowCheckbox.checked || !itemCardsContainer.children[i].classList.contains('hide-card'))) {
+            itemCardsContainer.children[i].classList.remove('display-none');
+        } else {
+            itemCardsContainer.children[i].classList.add('display-none');
+        }
     }
-    localStorage.setItem('comparisonIds', JSON.stringify(Array.from(comparisonIdsSet)))
 }
-
-
-itemCardsContainer.addEventListener('click', function (e) {
-    var target = e.target;
-
-    if (target.classList.contains('show-hide-button')) {
-        showHideCard(target);
-    } else if (target.classList.contains('add-remove-favourites-button')) {
-        addRemoveFavourites(target);
-    } else if (target.classList.contains('add-remove-comparison-button')) {
-        addRemoveComparison(target);
-    }
-});
-
-
-checkboxWrapperLabel.addEventListener('click', function () {
-    checkboxWrapper.classList.toggle('hide-genre-checkboxes');
-    checkboxWrapper.classList.toggle('show-genre-checkboxes');
-});
-
-buttonsWrapper.addEventListener('click', function (e) {
+var filterCards = function (e) {
     var target = e.target;
 
     if (target.classList.contains('filter-button')) {
-        var i;
-        for (i = 0; i < buttonsWrapper.children.length; i++) {
+        for (var i = 0; i < buttonsWrapper.children.length; i++) {
             buttonsWrapper.children[i].classList.remove('filter-button-active');
         }
 
-        target.classList.toggle('filter-button-active');
+        target.classList.add('filter-button-active');
 
         if (target.classList.contains('filter-all')) {
             filterButtonStateMarker = 'all';
-            for (i = 0; i < itemCardsContainer.children.length; i++) {
-                if (hideShowCheckbox.checked || !itemCardsContainer.children[i].classList.contains('hide-card')) {
-                    itemCardsContainer.children[i].classList.remove('display-none');
-                } else itemCardsContainer.children[i].classList.add('display-none');
-            }
         } else if (target.classList.contains('filter-favourites')) {
             filterButtonStateMarker = 'in-favourites';
-            for (i = 0; i < itemCardsContainer.children.length; i++) {
-                if (itemCardsContainer.children[i].classList.contains('in-favourites')) {
-                    if (hideShowCheckbox.checked || !itemCardsContainer.children[i].classList.contains('hide-card')) {
-                        itemCardsContainer.children[i].classList.remove('display-none');
-                    } else itemCardsContainer.children[i].classList.add('display-none');
-                } else {
-                    itemCardsContainer.children[i].classList.add('display-none');
-                }
-            }
         } else if (target.classList.contains('filter-comparison')) {
             filterButtonStateMarker = 'in-comparison';
-            for (i = 0; i < itemCardsContainer.children.length; i++) {
-                if (itemCardsContainer.children[i].classList.contains('in-comparison')) {
-                    if (hideShowCheckbox.checked || !itemCardsContainer.children[i].classList.contains('hide-card')) {
-                        itemCardsContainer.children[i].classList.remove('display-none');
-                    } else itemCardsContainer.children[i].classList.add('display-none');
-                } else {
-                    itemCardsContainer.children[i].classList.add('display-none');
-                }
-            }
         }
+        displayCards();
     }
-})
+}
 
-settingsButton.addEventListener('mouseenter', showHideOptionalCheckboxes);
-settingsButton.addEventListener('mouseleave', showHideOptionalCheckboxes);
 
-hideShowCheckbox.addEventListener('click', function (e) {
-    for (var i = 0; i < itemCardsContainer.children.length; i++) {
-        if (itemCardsContainer.children[i].classList.contains('hide-card') &&
-            (filterButtonStateMarker === 'all' || itemCardsContainer.children[i].classList.contains(filterButtonStateMarker))) {
-            itemCardsContainer.children[i].classList.toggle('display-none');
-        }
-    }
-})
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (localStorage.hasOwnProperty('hiddenItemCardsIds')) {
-        hiddenItemCardsIdsSet = new Set(JSON.parse(localStorage.getItem('hiddenItemCardsIds')));
-    }
-    if (localStorage.hasOwnProperty('favouritesIds')) {
-        favouritesIdsSet = new Set(JSON.parse(localStorage.getItem('favouritesIds')));
-    }
-    if (localStorage.hasOwnProperty('comparisonIds')) {
-        comparisonIdsSet = new Set(JSON.parse(localStorage.getItem('comparisonIds')));
-    }
-    for (var i = 0; i < itemCardsContainer.children.length; i++) {
-        var card = itemCardsContainer.children[i];
-        var cardRoundButtonsWrapper = card.querySelector('.round-action-buttons-wrapper');
-        if (hiddenItemCardsIdsSet.has(card.id)) {
-            card.classList.add('hide-card');
-            var showHideButton = cardRoundButtonsWrapper.querySelector('.show-hide-button');
-            showHideButton.classList.toggle('fa-eye-slash');
-            showHideButton.classList.toggle('fa-eye');
+    initializeVariables();
+    buttonsWrapper.addEventListener('click', filterCards);
+    settingsButton.addEventListener('mouseenter', showHideOptionalCheckboxes);
+    settingsButton.addEventListener('mouseleave', showHideOptionalCheckboxes);
+
+    checkboxWrapperLabel.addEventListener('click', function () {
+        checkboxWrapper.classList.toggle('hide-genre-checkboxes');
+        checkboxWrapper.classList.toggle('show-genre-checkboxes');
+    });
+
+    itemCardsContainer.addEventListener('click', function (e) {
+        var target = e.target;
+        var card = target.parentElement.parentElement;
+
+        if (target.classList.contains('show-hide-button')) {
+            addRemoveFromGroup(card, 'hidden');
+        } else if (target.classList.contains('add-remove-favourites-button')) {
+            addRemoveFromGroup(card, 'inFavourites');
+        } else if (target.classList.contains('add-remove-comparison-button')) {
+            addRemoveFromGroup(card, 'inComparison');
         }
-        if (favouritesIdsSet.has(card.id)) {
-            card.classList.add('in-favourites');
-            var favouritesButton = cardRoundButtonsWrapper.querySelector('.add-remove-favourites-button');
-            favouritesButton.classList.toggle('far');
-            favouritesButton.classList.toggle('fas');
-        }
-        if (comparisonIdsSet.has(card.id)) {
-            card.classList.add('in-comparison');
-            var comparisonButton = cardRoundButtonsWrapper.querySelector('.add-remove-comparison-button');
-            comparisonButton.classList.toggle('fa-balance-scale-left');
-            comparisonButton.classList.toggle('fa-balance-scale');
-        }
-    }
-})
+    });
+
+    hideShowCheckbox.addEventListener('click', changeDisplayOfHiddenCards);
+});
